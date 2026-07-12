@@ -1,0 +1,32 @@
+
+@{
+    string IsActive(string page)
+    {
+        var currentPage = ViewContext.ActionDescriptor.DisplayName;
+        return currentPage.Contains(page) ? "active" : "";
+    }
+}
+
+<!Doctype HTML>
+<html>
+    <head>
+        <title>Auditor Dashboard - @ViewData["title"]</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    </head>
+    <body class="d-flex vh-100">
+        <aside class="bg-dark text-white d-flex flex-column p-3" style="width: 250px;">
+            <nav class="nav nav-pills flex-column">
+                <h1 class="h4 text-center user-select-none">Auditor</h1>
+                <hr/>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Index")" asp-page="/dashboard/Index">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Reports")" asp-page="/dashboard/Reports/Index">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Settings")" asp-page="/dashboard/Settings">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            @RenderBody()
+        </main>
+    </body>
+</html>

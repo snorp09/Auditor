@@ -5,4 +5,61 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>Welcome to the Auditor Dashboard</h1>
+<div class="d-flex flex-column p-4 border rounded">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4">Transactions</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add Transaction</button>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.Name</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTransactionModalLabel">Add Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addTransactionForm" method="post">
+                    <div class="mb-3">
+                        <label for="transactionName" class="form-label" asp-for="IncomingTransaction.Name">Name</label>
+                        <input type="text" class="form-control" id="transactionName" asp-for="IncomingTransaction.Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="transactionAmount" class="form-label" asp-for="IncomingTransaction.Amount">Amount</label>
+                        <input type="number" step="0.01" class="form-control" id="transactionAmount" asp-for="IncomingTransaction.Amount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="transactionDate" class="form-label" asp-for="IncomingTransaction.Date">Date</label>
+                        <input type="date" class="form-control" id="transactionDate" asp-for="IncomingTransaction.Date" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="addTransactionForm" class="btn btn-primary">Add Transaction</button>
+            </div>
+        </div>
+    </div>
+</div>

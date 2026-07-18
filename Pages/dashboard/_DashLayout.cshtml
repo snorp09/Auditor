@@ -12,6 +12,7 @@
     <head>
         <title>Auditor Dashboard - @ViewData["title"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body class="d-flex vh-100">
         <aside class="bg-dark text-white d-flex flex-column p-3" style="width: 250px;">
@@ -20,12 +21,12 @@
                 <hr/>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Index")" asp-page="/dashboard/Index">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Reports")" asp-page="/dashboard/Reports/Index">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/History")" asp-page="/dashboard/History/Index">History</a></li>
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Settings")" asp-page="/dashboard/Settings">Settings</a></li>
                 </ul>
             </nav>
         </aside>
-        <main>
+        <main class="flex-grow-1 p-3">
             @RenderBody()
         </main>
     </body>

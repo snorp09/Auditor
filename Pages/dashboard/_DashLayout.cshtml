@@ -16,14 +16,16 @@
     <head>
         <title>Auditor Dashboard - @ViewData["title"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="~/Auditor.styles.css" asp-append-version="true" />
     </head>
     <body class="d-flex vh-100">
-        <aside class="bg-dark text-white d-flex flex-column p-3" style="width: 250px;">
+        <aside class="dashboard-sidebar bg-dark text-white d-flex flex-column p-3" style="width: 250px;">
             <nav class="nav nav-pills flex-column">
                 <h1 class="h4 text-center user-select-none">Auditor</h1>
                 <hr/>
-                <ul class="nav nav-pills flex-column">
+                <ul class="nav nav-pills flex-column gap-1">
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Index")" asp-page="/dashboard/Index">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/History")" asp-page="/dashboard/History/Index">History</a></li>
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Settings")" asp-page="/dashboard/Settings">Settings</a></li>

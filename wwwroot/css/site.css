@@ -25,3 +25,22 @@ html {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.dashboard-sidebar .nav-item:hover {
+  background-color: #d7e2ec;
+}
+
+.dashboard-sidebar .nav-item {
+  border-radius: var(--bs-nav-pills-border-radius);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-sidebar .nav-link {
+  color: #fff !important;
+}
+
+.dashboard-sidebar .nav-item:hover > .nav-link:not(.active), 
+.dashboard-sidebar .nav-link:not(.active):hover,
+.dashboard-sidebar .nav-link:not(active):focus {
+  color: #1a73e8 !important;
+}

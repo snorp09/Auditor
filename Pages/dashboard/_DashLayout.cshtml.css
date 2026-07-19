@@ -1,0 +1,12 @@
+.nav-item:hover {
+    background-color: #d7e2ec;
+    border-radius: var(--bs-nav-pills-border-radius);
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.nav-item:hover > .nav-link {
+    color: #1a73e8 !important;
+}

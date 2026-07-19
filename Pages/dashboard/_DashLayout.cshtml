@@ -3,6 +3,10 @@
     string IsActive(string page)
     {
         var currentPage = ViewContext.ActionDescriptor.DisplayName;
+        if(currentPage == null)
+        {
+            return "";
+        }
         return currentPage.Contains(page) ? "active" : "";
     }
 }

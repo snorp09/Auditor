@@ -1,37 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Auditor.Data;
 using Auditor.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auditor.Pages.Dashboard
 {
     public class IndexModel : PageModel
     {
+        private readonly AuditorDb _db;
         [BindProperty]
-        public Transaction IncomingTransaction {get; set;}
+        public Transaction IncomingTransaction {get; set;} = null!;
 
-        public static List<Transaction> TransactionsList =
-        [
-            new Transaction { Id = 1, Name = "Transaction 1", Amount = 100.00m, Date = DateTime.Now },
-            new Transaction { Id = 2, Name = "Transaction 2", Amount = 200.00m, Date = DateTime.Now },
-            new Transaction { Id = 3, Name = "Transaction 3", Amount = 300.00m, Date = DateTime.Now }
-        ];
-
-        public List<Transaction> Transactions { get; set; } = null!;
-        public void OnGet()
+        public IndexModel(AuditorDb db)
         {
-            this.Transactions = TransactionsList;
+            _db = db;
         }
 
-        public IActionResult OnPost()
+        public List<Transaction> Transactions { get; set; } = null!;
+        public async Task OnGetAsync()
+        {
+            this.Transactions = await _db.Transactions.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            IncomingTransaction.Id = TransactionsList.Count + 1;
-
-            TransactionsList.Add(IncomingTransaction);
+            _db.Transactions.Add(IncomingTransaction);
+            await _db.SaveChangesAsync();
             return RedirectToPage();
         }
     }

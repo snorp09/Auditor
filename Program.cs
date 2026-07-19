@@ -1,4 +1,9 @@
+using Auditor.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AuditorDb>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultSqlite")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -22,5 +27,11 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AuditorDb>();
+    db.Database.Migrate();
+}
 
 app.Run();

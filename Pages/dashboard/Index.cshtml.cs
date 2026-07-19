@@ -20,7 +20,7 @@ namespace Auditor.Pages.Dashboard
         public List<Transaction> Transactions { get; set; } = null!;
         public async Task OnGetAsync()
         {
-            this.Transactions = await _db.Transactions.ToListAsync();
+            Transactions = await _db.Transactions.OrderByDescending(t => t.Date).ThenByDescending(t => t.Id).Take(10).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()

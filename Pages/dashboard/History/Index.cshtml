@@ -1,7 +1,37 @@
 @page
+@model Auditor.Pages.Dashboard.History.IndexModel
 @{
     ViewData["title"] = "History";
     Layout = "_DashLayout";
 }
 
-<h1>History</h1>
+<div class="d-flex flex-column my-2">
+    <h1 class="h4">History</h1>
+    <h1 class="h6 text-muted">View Past Month Transactions</h1>
+</div>
+
+<div class="d-flex flex-column p-4 border rounded">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4">@Model.month.ToString("MMMM yyyy")</h1>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.Name</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

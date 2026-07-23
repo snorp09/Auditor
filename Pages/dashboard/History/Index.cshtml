@@ -13,6 +13,14 @@
 <div class="d-flex flex-column p-4 border rounded">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4">@Model.month.ToString("MMMM yyyy")</h1>
+        <div class="d-flex gap-2">
+            <form method="get">
+                <button type="submit" name="month" value="@Model.month.AddMonths(-1).ToString("yyyy-MM")" class="btn btn-outline-primary"><i class="ph ph-arrow-left"></i></button>
+            </form>
+            <form method="get">
+                <button type="submit" name="month" value="@Model.month.AddMonths(1).ToString("yyyy-MM")" class="btn btn-outline-primary" @(Model.month >= DateTime.Now.AddMonths(-1) ? "disabled" : "")><i class="ph ph-arrow-right"></i></button>
+            </form>
+        </div>
     </div>
     <div class="overflow-auto" style="max-height: 400px;">
         <table class="table table-striped">

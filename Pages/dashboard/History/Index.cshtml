@@ -11,7 +11,7 @@
 </div>
 
 <div class="d-flex flex-column p-4 border rounded">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
         <h1 class="h4">@Model.month.ToString("MMMM yyyy")</h1>
         <h1 attributes="" class="h6 text-muted">Total: @Model.Transactions.Sum(t => t.Amount).ToString("C")</h1>
         <div class="d-flex gap-2">
@@ -23,6 +23,7 @@
             </form>
         </div>
     </div>
+    <hr />
     <div class="overflow-auto" style="max-height: 400px;">
         <table class="table table-striped">
             <thead class="sticky-top bg-white">

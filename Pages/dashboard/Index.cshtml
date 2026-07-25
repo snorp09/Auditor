@@ -27,11 +27,7 @@
         <tbody>
             @foreach (var transaction in Model.Transactions)
             {
-                <tr>
-                    <td>@transaction.Name</td>
-                    <td>@transaction.Amount</td>
-                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
-                </tr>
+                <partial name="EntryRow" model="transaction" />
             }
         </tbody>
     </table>
@@ -53,6 +49,13 @@
                     <div class="mb-3">
                         <label for="transactionAmount" class="form-label" asp-for="IncomingTransaction.Amount">Amount</label>
                         <input type="number" step="0.01" class="form-control" id="transactionAmount" asp-for="IncomingTransaction.Amount" required>
+                        <div class="btn-group my-2" role="group" aria-label="Transaction Type">
+                            <input type="radio" class="btn-check" id="incomeRadio" value="@Auditor.Models.TransactionType.Income" checked asp-for="IncomingTransaction.Type">
+                            <label class="btn btn-outline-success" for="incomeRadio">Income</label>
+
+                            <input type="radio" class="btn-check" id="expenseRadio" value="@Auditor.Models.TransactionType.Expense" asp-for="IncomingTransaction.Type">
+                            <label class="btn btn-outline-danger" for="expenseRadio">Expense</label>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="transactionDate" class="form-label" asp-for="IncomingTransaction.Date">Date</label>

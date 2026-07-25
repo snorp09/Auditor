@@ -16,6 +16,11 @@ public class IndexModel : PageModel
     }
 
     public List<Transaction> Transactions { get; set; } = null!;
+
+    public decimal TotalIncome => Transactions.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount);
+    public decimal TotalExpense => Transactions.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount);
+    public decimal TotalBalance => TotalIncome - TotalExpense;
+
     public DateTime month { get; set; } = DateTime.Now;
     public async Task OnGetAsync(DateTime? Month = null)
     {

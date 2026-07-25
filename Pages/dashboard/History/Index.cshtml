@@ -36,11 +36,7 @@
             <tbody>
                 @foreach (var transaction in Model.Transactions)
                 {
-                    <tr>
-                        <td>@transaction.Name</td>
-                        <td>@transaction.Amount</td>
-                        <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
-                    </tr>
+                    <partial name="EntryRow" model="transaction" />
                 }
             </tbody>
         </table>

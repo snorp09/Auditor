@@ -1,0 +1,11 @@
+@using Auditor.Models;
+
+@model Transaction;
+
+<tr>
+    <td>@Model.Name</td>
+    <td class="@(Model.Type == Auditor.Models.TransactionType.Income ? "text-success" : "text-danger")">
+        @(Model.Type == Auditor.Models.TransactionType.Income ? "+" : "-")@Model.Amount
+    </td>
+    <td>@Model.Date.ToString("yyyy-MM-dd")</td>
+</tr>

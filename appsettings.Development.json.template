@@ -8,5 +8,13 @@
   },
   "ConnectionStrings": {
     "DefaultSqlite": "Data Source=auditor.db"
+  },
+  "MailConfig": {
+    "SmtpServer": "smtp.yourserver.com",
+    "SmtpPort": 587,
+    "SmtpUsername": "yourUsername",
+    "SmtpPassword": "yourPassword,
+    "FromEmail": "youremail",
+    "ToEmail": destinationemail
   }
 }

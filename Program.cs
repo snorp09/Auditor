@@ -1,9 +1,19 @@
 using Auditor.Data;
 using Microsoft.EntityFrameworkCore;
+using Auditor.Configs;
+using Auditor.Services;
+using Auditor.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection("MailConfig"));
 
 builder.Services.AddDbContext<AuditorDb>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultSqlite")));
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IFlagNotificationProvider, FlagNotificationProvider>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

@@ -13,8 +13,8 @@
     "SmtpServer": "smtp.yourserver.com",
     "SmtpPort": 587,
     "SmtpUsername": "yourUsername",
-    "SmtpPassword": "yourPassword,
+    "SmtpPassword": "yourPassword",
     "FromEmail": "youremail",
-    "ToEmail": destinationemail
+    "ToEmail": "destinationemail"
   }
 }

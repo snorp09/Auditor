@@ -15,10 +15,10 @@ If your parents are no longer capable of tracking their own money, you can set u
 
 ## Milestones
 
-### Base Functionality (Milestone 1):
+### Base Functionality (Milestone 1) 💎✔️:
 - [x] Expense cataloging
 - [x] Income cataloging
-- [ ] Flagging Odd logs
+- [x] Flagging Odd logs
 
 ### Expanded Functionality (Milestone 2):
 - [ ] Multi-User

@@ -25,10 +25,19 @@ public class FlagModel : PageModel
             return NotFound();
         }
 
-        transaction.IsFlagged = true;
-        await _db.SaveChangesAsync();
+        if (transaction.IsFlagged)
+        {
+            transaction.IsFlagged = false;
+            await _db.SaveChangesAsync();
+        }
+        else
+        {
+            transaction.IsFlagged = true;
+            await _db.SaveChangesAsync();
 
-        await _flagNotificationProvider.NotifyFlaggedTransactionAsync(transaction);
+            await _flagNotificationProvider.NotifyFlaggedTransactionAsync(transaction);
+        }
+
 
         if (!string.IsNullOrEmpty(returnUrl))
         {

@@ -15,4 +15,7 @@ public class Transaction
     public TransactionType Type { get; set; }
 
     public bool IsFlagged { get; set; } = false;
+
+    public int BoardId { get; set; } = 0;
+    public Board? Board { get; set; }
 }

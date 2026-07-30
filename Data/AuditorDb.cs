@@ -10,4 +10,7 @@ public class AuditorDb : DbContext
     }
 
     public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<Board> Boards { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserPermission> UserPermissions { get; set; }
 }

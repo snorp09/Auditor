@@ -9,7 +9,7 @@
     </td>
     <td>@Model.Date.ToString("yyyy-MM-dd")</td>
     <td>
-        <form method="post" asp-page="Flag" asp-page-handler="FlagTransaction" class="d-inline">
+        <form method="post" asp-page="/dashboard/Flag" asp-page-handler="FlagTransaction" class="d-inline">
             <input type="hidden" name="transactionId" value="@Model.Id" />
             <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
             <button type="submit" class="btn btn-sm @(Model.IsFlagged ? "btn-warning" : "btn-outline-warning")">

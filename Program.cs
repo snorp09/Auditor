@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AuditorDb>(options =>
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFlagNotificationProvider, FlagNotificationProvider>();
+builder.Services.AddScoped<IUserManager, UserManager>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

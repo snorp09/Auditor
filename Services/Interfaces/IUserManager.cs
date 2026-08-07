@@ -55,8 +55,4 @@ public interface IUserManager
     public Task<UserResults> SignupUser(string name, string email, string password);
 
     public Task ResetUserpassword(string resetToken, string password);
-
-    public abstract static string HashPassword(string passwordRaw);
-
-    public abstract static bool CheckPasswordMatch(User user, string passwordRaw);
 }

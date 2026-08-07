@@ -48,8 +48,21 @@ public class UserManager : IUserManager
         throw new NotImplementedException();
     }
 
-    public Task<UserResults> SignupUser(string email, string password)
+    public async Task<UserResults> SignupUser(string name, string email, string password)
     {
-        throw new NotImplementedException();
+        if ((await _db.Users.FirstOrDefaultAsync(u => u.Email == email)) != null)
+        {
+            return UserResults.Error(ErrType.EXISTING_EMAIL_FOUND, "Email already has an account.");
+        }
+        User newUser = new()
+        {
+            Name = name,
+            Email = email,
+            PasswordHash = HashPassword(password)
+        };
+        await _db.Users.AddAsync(newUser);
+        await _db.SaveChangesAsync();
+        return UserResults.Ok(newUser);
+
     }
 }

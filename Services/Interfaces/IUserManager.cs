@@ -5,7 +5,8 @@ namespace Auditor.Services.Interfaces;
 public enum ErrType
 {
     USER_NOT_FOUND = 0,
-    PASSWORD_MISMATCH = 1
+    PASSWORD_MISMATCH = 1,
+    EXISTING_EMAIL_FOUND = 2
 }
 
 public class UserErr
@@ -51,7 +52,7 @@ public interface IUserManager
 {
     public Task<UserResults> AuthenticateUser(string email, string password);
 
-    public Task<UserResults> SignupUser(string email, string password);
+    public Task<UserResults> SignupUser(string name, string email, string password);
 
     public Task ResetUserpassword(string resetToken, string password);
 

@@ -15,7 +15,7 @@ public class SignupModel : PageModel
     private readonly IUserManager _userManager;
 
     [BindProperty]
-    public UserIncoming Input { get; set; } = new UserIncoming();
+    public UserSignup Input { get; set; } = new();
 
     public IActionResult OnGet()
     {

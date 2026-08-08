@@ -1,5 +1,6 @@
 using Auditor.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Auditor.Configs;
 using Auditor.Services;
 using Auditor.Services.Interfaces;
@@ -15,6 +16,16 @@ builder.Services.AddDbContext<AuditorDb>(options =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFlagNotificationProvider, FlagNotificationProvider>();
 builder.Services.AddScoped<IUserManager, UserManager>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(options =>
+{
+    options.Cookie.Name = "AuditorToken";
+    options.Cookie.HttpOnly = true;
+    options.LoginPath = "/login/index";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -33,6 +44,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

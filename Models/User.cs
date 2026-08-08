@@ -9,10 +9,8 @@ public class User
 
     public List<UserPermission> UserPermissions { get; set; } = [];
 
-    public List<Board> ViewableBoards { get => UserPermissions
-        .Where(up => up.Grant >= PermissionGrant.Read)
-        .Select(up => up.Board)
-        .Where(b => b != null)
-        .ToList()!;
+    public override string ToString()
+    {
+        return $"Id: {Id}, Name: {Name}, Email: {Email}";
     }
 }

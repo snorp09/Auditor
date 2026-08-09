@@ -16,6 +16,7 @@ builder.Services.AddDbContext<AuditorDb>(options =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFlagNotificationProvider, FlagNotificationProvider>();
 builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
@@ -23,6 +24,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.Cookie.Name = "AuditorToken";
     options.Cookie.HttpOnly = true;
     options.LoginPath = "/login/index";
+    options.LogoutPath = "/api/signout";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.SlidingExpiration = true;
 });
@@ -50,6 +52,7 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {

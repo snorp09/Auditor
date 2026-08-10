@@ -1,7 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 using Auditor.Services.Interfaces;
 using Auditor.Models;
 using Auditor.Data;
-using Microsoft.EntityFrameworkCore;
 
 public class UserManager : IUserManager
 {
@@ -14,19 +15,12 @@ public class UserManager : IUserManager
 
     public static string HashPassword(string passwordRaw)
     {
-        //Stub method. TODO: Implement BCrypt.NET
-        return passwordRaw;
+        return BCrypt.Net.BCrypt.HashPassword(passwordRaw);
     }
 
     public static bool CheckPasswordMatch(User user, string passwordRaw)
     {
-
-        //TODO Implement BCrypt.NET Password validation.
-        if (user.PasswordHash == passwordRaw)
-        {
-            return true;
-        }
-        return false;
+        return BCrypt.Net.BCrypt.Verify(passwordRaw, user.PasswordHash);
     }
 
     public async Task<UserResults> AuthenticateUser(string email, string password)

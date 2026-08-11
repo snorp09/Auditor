@@ -59,4 +59,16 @@ public class IndexModel : PageModel
 
         return RedirectToPage("/authtest");
     }
+
+    public async Task<IActionResult> OnPostForgotPasswordAsync()
+    {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        await _UserManager.GeneratePasswordResetToken(Input.Email);
+
+        return RedirectToPage("/Login/forgotpasswordsent");
+    }
 }

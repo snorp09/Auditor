@@ -54,5 +54,7 @@ public interface IUserManager
 
     public Task<UserResults> SignupUser(string name, string email, string password);
 
-    public Task ResetUserpassword(string resetToken, string password);
+    public Task GeneratePasswordResetToken(string email);
+
+    public Task ResetUserPassword(string resetToken, string password);
 }

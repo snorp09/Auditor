@@ -21,7 +21,7 @@
                 {
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <form action="/api/signout" method="post" class="d-inline">
+                        <form action="/api/Auth/signout" method="post" class="d-inline">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-outline-danger">Sign Out</button>
                         </form>
@@ -52,25 +52,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-
-<script>
-    function signOut() {
-    fetch('/api/signout', {
-    method: 'POST',
-    headers: {
-    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-    }
-    }).then(response => {
-    if (response.ok) {
-    window.location.href = '/';
-    } else {
-    alert('Sign out failed.');
-    }
-    }).catch(error => {
-    console.error('Error during sign out:', error);
-    alert('An error occurred during sign out.');
-    });
-    }
-</script>
 
 </html>

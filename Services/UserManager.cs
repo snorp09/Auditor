@@ -78,12 +78,11 @@ public class UserManager : IUserManager
             SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256),
         };
         var resetToken = tokenHandler.CreateToken(resetTokenDesc);
-        var webToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenHandler.WriteToken(resetToken)));
         var actionURL = _linkGenerator.GetUriByPage(
             httpContext: _httpContextAccessor.HttpContext,
             page: "/Login/reset",
             handler: null,
-            values: new { token = webToken });
+            values: new { token = tokenHandler.WriteToken(resetToken) });
         var emailBody = $"Someone has requested a reset for your password on Auditor.\nIf this wasn't you, you can safely ignore this email.\n\n Reset Link: {actionURL}";
         await _emailService.SendEmailAsync(user.Email, "Auditor: Password Reset", emailBody);
     }

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class PasswordReset
 {
+    [Required]
     public string Token { get; set; } = string.Empty;
 
     [Required]

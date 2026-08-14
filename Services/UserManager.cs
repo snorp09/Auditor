@@ -89,7 +89,41 @@ public class UserManager : IUserManager
 
     public Task ResetUserPassword(string resetToken, string password)
     {
-        throw new NotImplementedException();
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtToken = tokenHandler.ReadJwtToken(resetToken);
+        var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid" || c.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim == null)
+        {
+            throw new Exception("Invalid token: User ID claim not found.");
+        }
+        int userId = int.Parse(userIdClaim.Value);
+        User? user = _db.Users.FirstOrDefault(u => u.Id == userId);
+        if (user == null)
+        {
+            throw new Exception("User not found.");
+        }
+        string resetKey = _jwtConfig.SecretKey + user.PasswordHash;
+        SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(resetKey));
+        var validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+        try
+        {
+            tokenHandler.ValidateToken(resetToken, validationParameters, out SecurityToken validatedToken);
+            user.PasswordHash = HashPassword(password);
+            _db.Users.Update(user);
+            _db.SaveChanges();
+            return Task.CompletedTask;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Invalid or expired token.", ex);
+        }
     }
 
     public async Task<UserResults> SignupUser(string name, string email, string password)

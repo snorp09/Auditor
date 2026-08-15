@@ -46,7 +46,7 @@ public class IndexModel : PageModel
 
         List<Claim> claims = new List<Claim>
         {
-            new(ClaimTypes.Name, user.Name),
+            new(ClaimTypes.Name, user.Id.ToString()),
             new(ClaimTypes.Authentication, "Password")
         };
 
@@ -57,7 +57,7 @@ public class IndexModel : PageModel
             new ClaimsPrincipal(claimsIdentity)
         );
 
-        return RedirectToPage("/authtest");
+        return RedirectToPage("/dashboard/Index");
     }
 
     public async Task<IActionResult> OnPostForgotPasswordAsync()

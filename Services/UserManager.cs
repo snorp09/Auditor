@@ -143,4 +143,15 @@ public class UserManager : IUserManager
         return UserResults.Ok(newUser);
 
     }
+
+    public Task<User?> GetCurrentUserAsync(ClaimsPrincipal userClaims)
+    {
+        var userIdClaim = userClaims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+        if (userIdClaim == null)
+        {
+            return Task.FromResult<User?>(null);
+        }
+        int userId = int.Parse(userIdClaim.Value);
+        return _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+    }
 }

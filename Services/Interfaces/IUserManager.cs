@@ -1,5 +1,5 @@
 using Auditor.Models;
-
+using System.Security.Claims;
 namespace Auditor.Services.Interfaces;
 
 public enum ErrType
@@ -57,4 +57,7 @@ public interface IUserManager
     public Task GeneratePasswordResetToken(string email);
 
     public Task ResetUserPassword(string resetToken, string password);
+    
+    public Task<User?> GetCurrentUserAsync(ClaimsPrincipal userClaims);
+
 }

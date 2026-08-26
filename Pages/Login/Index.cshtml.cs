@@ -13,14 +13,16 @@ public class IndexModel : PageModel
 {
 
     private readonly IUserManager _UserManager;
+    private readonly IBoardManager _BoardManager;
 
 
     [BindProperty]
     public UserLogin Input { get; set; } = new UserLogin();
 
-    public IndexModel(IUserManager userManager)
+    public IndexModel(IUserManager userManager, IBoardManager boardManager)
     {
         _UserManager = userManager;
+        _BoardManager = boardManager;
     }
 
     public async Task OnGetAsync()
@@ -57,7 +59,11 @@ public class IndexModel : PageModel
             new ClaimsPrincipal(claimsIdentity)
         );
 
-        return RedirectToPage("/dashboard/Index");
+        var board = await _BoardManager.GetUserFirstBoardAsync(user.Id);
+
+        board ??= await _BoardManager.CreateBoardAsync(user);
+
+        return RedirectToPage("/dashboard/Index", new { DashboardId = board.Id });
     }
 
     public async Task<IActionResult> OnPostForgotPasswordAsync()

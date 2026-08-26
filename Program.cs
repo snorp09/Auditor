@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AuditorDb>(options =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFlagNotificationProvider, FlagNotificationProvider>();
 builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IBoardManager, BoardManager>();
 builder.Services.AddControllers();
 
 builder.Services.AddHttpContextAccessor();
@@ -42,6 +43,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/dashboard");
+    options.Conventions.AddFolderRouteModelConvention("/dashboard", model =>
+    {
+        foreach (var selector in model.Selectors)
+        {
+            var template = selector.AttributeRouteModel?.Template;
+            var pageName = template?.Substring("dashboard".Length).TrimStart('/');
+
+            selector.AttributeRouteModel?.Template = $"{{DashboardId:int}}/{pageName}";
+        }
+    });
 });
 
 

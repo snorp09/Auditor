@@ -26,6 +26,7 @@ namespace Auditor.Pages.dashboard
         {
             Transactions = await _db.Transactions.OrderByDescending(t => t.Date).ThenByDescending(t => t.Id).Take(10).ToListAsync();
             CurrentUser = await _userManager.GetCurrentUserAsync(User);
+            Response.Cookies.Append("DashboardId", CurrentBoard.Id.ToString() ?? "0");
         }
 
         public async Task<IActionResult> OnPostAsync()

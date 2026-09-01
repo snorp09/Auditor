@@ -1,0 +1,19 @@
+@page "{token}"
+@model Auditor.Pages.Login.ResetModel
+
+<div>
+    <form action="" method="post">
+        <input type="hidden" asp-for="Input.Token" value="@ViewContext.RouteData.Values["token"]" />
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <input asp-for="Input.Password" class="form-control" type="password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" type="password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+    </form>
+</div>

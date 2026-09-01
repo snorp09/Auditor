@@ -3,6 +3,7 @@ using System;
 using Auditor.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auditor.Migrations
 {
     [DbContext(typeof(AuditorDb))]
-    partial class AuditorDbModelSnapshot : ModelSnapshot
+    [Migration("20260729230633_ScaffoldUsers")]
+    partial class ScaffoldUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -27,12 +30,11 @@ namespace Auditor.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Boards");
+                    b.ToTable("Board");
                 });
 
             modelBuilder.Entity("Auditor.Models.Transaction", b =>
@@ -73,20 +75,17 @@ namespace Auditor.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Auditor.Models.UserPermission", b =>
@@ -110,7 +109,7 @@ namespace Auditor.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPermissions");
+                    b.ToTable("UserPermission");
                 });
 
             modelBuilder.Entity("Auditor.Models.Transaction", b =>
@@ -133,7 +132,7 @@ namespace Auditor.Migrations
                         .IsRequired();
 
                     b.HasOne("Auditor.Models.User", "User")
-                        .WithMany("UserPermissions")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -147,11 +146,6 @@ namespace Auditor.Migrations
                 {
                     b.Navigation("Transactions");
 
-                    b.Navigation("UserPermissions");
-                });
-
-            modelBuilder.Entity("Auditor.Models.User", b =>
-                {
                     b.Navigation("UserPermissions");
                 });
 #pragma warning restore 612, 618

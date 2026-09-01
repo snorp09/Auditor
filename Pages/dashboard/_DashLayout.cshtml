@@ -19,28 +19,39 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/Auditor.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/@@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/@@phosphor-icons/web@2.1.1/src/fill/style.css" />
 </head>
 
 <body class="d-flex vh-100">
-    <aside class="dashboard-sidebar bg-dark text-white d-flex flex-column p-3" style="width: 250px;">
-        <nav class="nav nav-pills flex-column">
-            <h1 class="h4 text-center user-select-none">Auditor</h1>
-            <hr />
-            <ul class="nav nav-pills flex-column gap-1">
-                <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Index")"
-                                            asp-page="/dashboard/Index">Dashboard</a></li>
+    <aside class="dashboard-sidebar bg-dark text-white d-flex flex-column p-3 justify-between" style="width: 250px;">
+        <nav class="nav nav-pills flex-column justify-content-between h-100">
+            <div>
+                <h1 class="h4 text-center user-select-none">Auditor</h1>
+                <hr />
+                <ul class="nav nav-pills flex-column gap-1">
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Index")"
+                                                asp-page="/dashboard/Index">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/History")"
                                                 asp-page="/dashboard/History/Index">History</a></li>
-                        @* <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Settings")"
-                                                    asp-page="/dashboard/Settings">Settings</a></li>
-                        </ul> UNUSED *@
-                    </nav>
-                </aside>
-                <main class="flex-grow-1 p-3">
-                    @RenderBody()
-                </main>
-            </body>
-
-        </html>
+                </ul>
+            </div>
+            <div class="d-flex flex-column gap-1 align-items-stretch">
+                <ul class="nav nav-pills d-flex flex-column gap-1">
+                    <li class="nav-item"><a class="nav-link text-white @IsActive("/dashboard/Settings")"
+                                                asp-page="/dashboard/Settings">Settings</a></li>
+                </ul>
+                <form action="/api/Auth/signout" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-outline-danger w-100">Sign Out</button>
+                </form>
+            </div>
+        </nav>
+    </aside>
+    <main class="flex-grow-1 p-3">
+        @RenderBody()
+    </main>
+</body>
+</html>

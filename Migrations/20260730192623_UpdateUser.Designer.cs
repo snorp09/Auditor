@@ -3,6 +3,7 @@ using System;
 using Auditor.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auditor.Migrations
 {
     [DbContext(typeof(AuditorDb))]
-    partial class AuditorDbModelSnapshot : ModelSnapshot
+    [Migration("20260730192623_UpdateUser")]
+    partial class UpdateUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -27,10 +30,14 @@ namespace Auditor.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Boards");
                 });
@@ -73,15 +80,12 @@ namespace Auditor.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -111,6 +115,13 @@ namespace Auditor.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserPermissions");
+                });
+
+            modelBuilder.Entity("Auditor.Models.Board", b =>
+                {
+                    b.HasOne("Auditor.Models.User", null)
+                        .WithMany("ViewableBoards")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Auditor.Models.Transaction", b =>
@@ -153,6 +164,8 @@ namespace Auditor.Migrations
             modelBuilder.Entity("Auditor.Models.User", b =>
                 {
                     b.Navigation("UserPermissions");
+
+                    b.Navigation("ViewableBoards");
                 });
 #pragma warning restore 612, 618
         }

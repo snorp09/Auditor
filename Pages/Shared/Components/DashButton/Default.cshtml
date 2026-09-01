@@ -1,0 +1,7 @@
+@model int
+
+@if(User.Identity?.IsAuthenticated == false){
+    <a class="btn btn-primary" asp-page="/Login/index">Login</a>
+} else {
+    <a class="btn btn-primary" asp-page="/Dashboard/index" asp-route-DashboardId="@Model">Dashboard</a>
+}

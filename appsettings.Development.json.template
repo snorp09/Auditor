@@ -16,5 +16,8 @@
     "SmtpPassword": "yourPassword",
     "FromEmail": "youremail",
     "ToEmail": "destinationemail"
+  },
+  "JwtConfig":{
+    "SecretKey": "yoursecretkey"
   }
 }

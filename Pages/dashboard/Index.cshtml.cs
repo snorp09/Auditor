@@ -36,6 +36,8 @@ namespace Auditor.Pages.dashboard
                 return Page();
             }
 
+            IncomingTransaction.BoardId = CurrentBoard.Id;
+
             _db.Transactions.Add(IncomingTransaction);
             await _db.SaveChangesAsync();
             return RedirectToPage();

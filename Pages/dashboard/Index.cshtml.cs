@@ -21,10 +21,10 @@ namespace Auditor.Pages.dashboard
             _userManager = userManager;
         }
 
-        public List<Transaction> Transactions { get; set; } = null!;
+        public IEnumerable<Transaction> Transactions { get; set; } = null!;
         public async Task OnGetAsync()
         {
-            Transactions = await _db.Transactions.OrderByDescending(t => t.Date).ThenByDescending(t => t.Id).Take(10).ToListAsync();
+            Transactions = await BoardManager.GetTransactionsByBoardAsync(CurrentBoard.Id);
             CurrentUser = await _userManager.GetCurrentUserAsync(User);
             Response.Cookies.Append("DashboardId", CurrentBoard.Id.ToString() ?? "0");
         }

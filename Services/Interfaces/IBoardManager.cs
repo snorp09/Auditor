@@ -11,4 +11,6 @@ public interface IBoardManager
     public Task<Board?> GetUserFirstBoardAsync(int userId);
 
     public Task UpdateUserPermissionAsync(int boardId, int userId, PermissionGrant permission);
+
+    public Task<IEnumerable<Transaction>> GetTransactionsByBoardAsync(int boardId);
 }

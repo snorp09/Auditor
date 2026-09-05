@@ -59,4 +59,14 @@ public class BoardManager : IBoardManager
     {
         throw new NotImplementedException();
     }
+
+    public async Task<IEnumerable<Transaction>> GetTransactionsByBoardAsync(int boardId)
+    {
+        var transactions = _db.Transactions
+            .Where(t => t.BoardId == boardId)
+            .OrderByDescending(t => t.Date)
+            .ThenByDescending(t => t.Id);
+
+        return await transactions.ToListAsync();
+    }
 }

@@ -43,6 +43,7 @@ public class DashPageModel : PageModel
 
         CurrentUser = (await UserManager.GetCurrentUserAsync(User))!;
         CurrentBoard = board;
+        ViewData["DashboardId"] = DashboardId;
 
         await next();
     }
